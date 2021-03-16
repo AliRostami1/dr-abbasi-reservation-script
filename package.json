@@ -1,0 +1,16 @@
+{
+  "name": "dr-abbasi-reservation-script",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dr-abbasi-reservation-script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "tsc"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-fetch": "^2.6.1",
+    "typescript": "^4.2.3"
+  }
+}
