@@ -42,7 +42,7 @@ async function getCaptcha() {
 		},
 		responseType: "stream"
 	}).then((response) => {
-		response.data.pipe(fs.createWriteStream('captcha.jpg'))
+		response.data.pipe(fs.createWriteStream('./dist/captcha.jpg'))
 		console.log("captcha saved!")
 	})
 
