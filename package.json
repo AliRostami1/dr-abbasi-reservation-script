@@ -2,10 +2,11 @@
   "name": "dr-abbasi-reservation-script",
   "version": "1.0.0",
   "description": "",
-  "main": "dr-abbasi-reservation-script.js",
+  "main": "./dist/src/dr-abbasi-reservation-script.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "compile": "tsc"
+    "compile": "tsc",
+    "start": "node ./dist/src/dr-abbasi-reservation-script.js",
+    "setup": "node ./dist/src/setup-script.js "
   },
   "author": "",
   "license": "ISC",
