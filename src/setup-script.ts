@@ -12,8 +12,7 @@ interface Data {
     cookie: string,
     captcha: string
 }
-const pathToJson = path.resolve(__dirname, '../config.json');
-const data: Data = JSON.parse(fs.readFileSync(pathToJson, 'utf8'));
+
 
 async function askQuestion(query: string): Promise<string> {
     const rl = readline.createInterface({
@@ -26,7 +25,6 @@ async function askQuestion(query: string): Promise<string> {
         resolve(ans);
     }))
 }
-
 
 async function getCaptcha() {
     return axios({
@@ -45,9 +43,36 @@ async function getCaptcha() {
 }
 
 async function main() {
+    const pathToJson = path.resolve(__dirname, '../config.json');
+
+    let data: Data;
+
+    if (!fs.existsSync(pathToJson)) {
+        const firstName = await askQuestion("Enter your First Name: ");
+        const lastName = await askQuestion("Enter your Last Name: ");
+        const nationalId = await askQuestion("Enter your nationalId: ");
+        const gender = await askQuestion("Enter your gender(male/female): ");
+        const mobile = await askQuestion("Enter your mobile number: ");
+
+        data = {
+            firstName,
+            lastName,
+            nationalId,
+            gender,
+            mobile,
+            cookie: "",
+            captcha: ""
+        };
+        fs.writeFileSync(pathToJson, JSON.stringify(data), { flag: "w" })
+    }
+
+    data = JSON.parse(fs.readFileSync(pathToJson, 'utf8'));
+
     const res = await getCaptcha();
+
     data.cookie = res.headers["set-cookie"]
-    data.captcha = await askQuestion("Enter the new Captcha Number(./dist/captcha.jpg): ");
+    data.captcha = await askQuestion("A new captcha.jpg is saved at ./dist/captcha.jpg, Please enter it's number: ");
+
     const jsonData = JSON.stringify(data);
     fs.writeFileSync(pathToJson, jsonData);
 }
